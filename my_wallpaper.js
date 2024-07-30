@@ -1,9 +1,52 @@
 //your parameter variables go here!
-let rect_width  = 20;
-let rect_height = 20;
+
+let headX = 0   //0 = middle
+let headY =0  //0= middle
+let eyeSize = 8 // 8 usually
+let bgColour;
+let fishColour;
+let fishSize = 1
+let eyeColour;
+
+
+//if statements 
+let backgroundVar = 1
+// 0, basic fish
+//1, 
+
+let fishVar = 1 //1 fish 
+let bubbleVar = 2 // 1=normal bubbles 2=many small bubles
+
+
+//ignore me
+
+// bubble code 
+let bubbleX = 0
+let bubbleY = 0
+let bubbleSize = 10
+//fish sizing code (so it moves together)
+let rectSize = 50 * fishSize;
+let mouthSize = 3 * fishSize;
+let eyeDiameter = eyeSize * fishSize;
+let bigOvalWidth = 50 * fishSize;
+let bigOvalHeight = 82 * fishSize;
+let smallOvalWidth = 25 * fishSize;
+let smallOvalHeight = 41 * fishSize;
+let tailSize = 25 * fishSize;
+let tailOffset = 10 * fishSize;
+  
 
 
 function setup_wallpaper(pWallpaper) {
+
+// colours for fishy
+bgColour = color(255, 251, 230);
+fishColour = color(0,8,51)
+eyeColour = color(153,25,0)
+
+  angleMode(DEGREES);// for head and tail square
+
+
   pWallpaper.output_mode(DEVELOP_GLYPH);
   pWallpaper.resolution(FIT_TO_SCREEN);
   pWallpaper.show_guide(true); //set this to false when you're ready to print
@@ -14,71 +57,251 @@ function setup_wallpaper(pWallpaper) {
   pWallpaper.grid_settings.row_offset  = 50;
 }
 
+
 function wallpaper_background() {
-  background(219,240,255); //light blue colour
+
+  background(bgColour); 
+
 }
 
 function my_symbol() { // do not rename this function. Treat this similarly to a Draw function
   
- 
-  {
-    
-    
-    fill(84)
+
+{//draw fish
+
+if (backgroundVar == 1){
+  DrawBubble(130,60)
+  DrawBubble(135,40)
+  DrawNew(0, 0, fishSize); 
+}
+
+if (backgroundVar ==2){
+  DrawNew(60, 100, fishSize); 
+  DrawNew(-10, 100, fishSize);
+  DrawNew(-80, 100, fishSize); 
+   
+  DrawNew(-80, 0, fishSize, true); // Mirrored fish
+  DrawNew(-10, 0, fishSize, true);
+  DrawNew(60, 0, fishSize, true); 
+  DrawNew(130, 0, fishSize, true); 
+   
+  DrawNew(60, -100, fishSize); 
+  DrawNew(-10, -100, fishSize);
+  DrawNew(-80, -100, fishSize); 
+
+}
+
+
+
+
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function DrawNew(headX,headY,fishSize, mirror = false){//fish face
+  
+  //fish face
+    push();
+    noStroke()
+    translate(headX+100* fishSize, headY+100*fishSize); // Move to canvas center
+    if (mirror) {
+      scale(-1,1);//mirror fishy
+    }
+    rotate(45);
+    rectMode(CENTER);
+    fill(fishColour)
+    rect(0, 0, rectSize, rectSize); // Draw at (0,0) which is now the canvas center
+    fill(bgColour)
+    rect(24 * fishSize, -24* fishSize, mouthSize, mouthSize)//mouth
+    pop();
+  
+  //eye
   noStroke()
-  ellipse(79, 120, 15, 50);//wing
-  ellipse(121, 120, 15, 50);//wing
-    ellipse(100, 120, 50, 80);//body
-    fill(255)
-    ellipse(100, 120, 40, 70);//body circle
-    
+  fill(eyeColour)
+  if (mirror){
+    circle(headX +80*fishSize, headY+100 * fishSize,eyeDiameter)//for mirrored fish eye
+    fill(fishColour);
+    circle(headX +80 *fishSize, headY+100*fishSize, eyeDiameter-2 * fishSize)
+  } else {
+  circle(headX+120* fishSize,headY+100* fishSize,eyeDiameter)
+  fill(fishColour)
+  circle(headX+120* fishSize,headY+100* fishSize,eyeDiameter-2* fishSize)
   }
-{fill(84)
-  circle(100,80,40);//head
-  fill(255)
+  
+  //big oval
+    noStroke()
+    fill(bgColour)
+    if (mirror){
+      ellipse(headX +113*fishSize, headY + 100* fishSize,bigOvalWidth,bigOvalHeight)
+    } else {
+    ellipse(headX+87* fishSize,headY+100* fishSize,bigOvalWidth,bigOvalHeight)
+    }
+  
+    // tail
+    push();
+    noStroke()
+    translate(headX+100* fishSize, headY+100* fishSize); // Move to canvas center
+    if (mirror){
+    scale(-1,1);//mirror fish tail
+    }
+    rotate(45);
+    rectMode(CENTER);
+    fill(fishColour)
+    rect(-tailOffset, tailOffset, tailSize, tailSize); 
+    pop();
+  
+  
+   //small oval
+   if (mirror) {
+    ellipse(headX+120* fishSize,headY+100* fishSize,smallOvalWidth,smallOvalHeight)
+   } else{
+    ellipse(headX+80* fishSize,headY+100* fishSize,smallOvalWidth,smallOvalHeight)
+   }
+  }
+
+
+  function DrawBubble(bubbleX,bubbleY){
+
+    fill(fishColour)
+    circle(bubbleX ,bubbleY,bubbleSize)
+    
+    fill(255)
+    circle(bubbleX+2,bubbleY-2,bubbleSize-7)
+    circle(bubbleX+3,bubbleY,bubbleSize-8)
+    
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // DrawNewFish1(60, 100, fishSize); 
+  // DrawNewFish1(-10, 100, fishSize);
+  // DrawNewFish1(-80, 100, fishSize); 
+  
+  
+  // DrawNewFish1(-80, 0, fishSize, true); // Mirrored fish
+  // DrawNewFish1(-10, 0, fishSize, true);
+  // DrawNewFish1(60, 0, fishSize, true); 
+  // DrawNewFish1(130, 0, fishSize, true); 
+  
+  // DrawNewFish1(60, -100, fishSize); 
+  // DrawNewFish1(-10, -100, fishSize);
+  // DrawNewFish1(-80, -100, fishSize); 
+  
+
+
+
+
+function DrawNewFish1(headX,headY,fishSize, mirror = false){//fish face
+  
+//fish face
+  push();
   noStroke()
-  ellipse(100, 85, 38, 30.5);//head circle
+  translate(headX+100* fishSize, headY+100*fishSize); // Move to canvas center
+  if (mirror) {
+    scale(-1,1);//mirror fishy
+  }
+  rotate(45);
+  rectMode(CENTER);
+  fill(fishColour)
+  rect(0, 0, rectSize, rectSize); // Draw at (0,0) which is now the canvas center
+  fill(bgColour)
+  rect(24 * fishSize, -24* fishSize, mouthSize, mouthSize)//mouth
+  pop();
 
-}
+//eye
 noStroke()
-fill(84)
-rect(95,64,10,16)//streak
-
-
-
-fill(255)
-{ellipse(90,78,16,19)}//white eye
-{ellipse(110,78,16,19)}//white eye
-
-fill(255,204,0)
-{triangle(95,80,100,90,105,80)}//beak
-fill(255)
-stroke(0)
-{circle(90,75,5)}//eye
-{circle(110,75,5)}//eye
-{circle(111,76,1)}//eye
-{circle(91,76,1)}//eye
-
-noStroke()
-
-// var x=70;
-// var y=130;
-
-// //small bow tie x=90 y=110
-// //big bow tie x=70 y=130
-
-// fill(204,0,0)
-//     // {triangle(x, y, x, 100, 102, 105)
-//     // triangle(y, y, y, 100, 98, 105)
-//     // circle(100,105,7);}//small bow tie
-
-//     {triangle(x, y, x, 80, 102, 105)
-//     triangle(y, y, y, 80, 98, 105)
-//     circle(100,105,20);}//big bow tie
-
-fill(255,204,0)
-
-
-ellipse(90, 158, 12, 5);//foot
-ellipse(110, 158, 12, 5);//foot
+fill(eyeColour)
+if (mirror){
+  circle(headX +80*fishSize, headY+100 * fishSize,eyeDiameter)//for mirrored fish eye
+  fill(fishColour);
+  circle(headX +80 *fishSize, headY+100*fishSize, eyeDiameter-2 * fishSize)
+} else {
+circle(headX+120* fishSize,headY+100* fishSize,eyeDiameter)
+fill(fishColour)
+circle(headX+120* fishSize,headY+100* fishSize,eyeDiameter-2* fishSize)
 }
+
+//big oval
+  noStroke()
+  fill(bgColour)
+  if (mirror){
+    ellipse(headX +113*fishSize, headY + 100* fishSize,bigOvalWidth,bigOvalHeight)
+  } else {
+  ellipse(headX+87* fishSize,headY+100* fishSize,bigOvalWidth,bigOvalHeight)
+  }
+
+  // tail
+  push();
+  noStroke()
+  translate(headX+100* fishSize, headY+100* fishSize); // Move to canvas center
+  if (mirror){
+  scale(-1,1);//mirror fish tail
+  }
+  rotate(45);
+  rectMode(CENTER);
+  fill(fishColour)
+  rect(-tailOffset, tailOffset, tailSize, tailSize); 
+  pop();
+
+
+ //small oval
+ if (mirror) {
+  ellipse(headX+120* fishSize,headY+100* fishSize,smallOvalWidth,smallOvalHeight)
+ } else{
+  ellipse(headX+80* fishSize,headY+100* fishSize,smallOvalWidth,smallOvalHeight)
+ }
+}
+
+
+
+
+// function DrawBubble(bubbleX,bubbleY){
+
+// fill(fishColour)
+// circle(bubbleX ,bubbleY,bubbleSize)
+
+// fill(255)
+// circle(bubbleX+2,bubbleY-2,bubbleSize-7)
+// circle(bubbleX+3,bubbleY,bubbleSize-8)
+
+// }
+
+
+
+
