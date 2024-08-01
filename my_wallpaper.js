@@ -3,19 +3,19 @@
 //so i can change my fish
 let headX = 0   //0 = middle
 let headY =0  //0= middle
-let eyeSize = 10 // 8 usually
+let eyeSize = 8 // 8 usually
 let bgColour;
 let fishColour;
-let fishSize = 2
+let fishSize = 2.6
 let eyeColour;
 
 // bubble code 
-let bubbleX = 80    //usually 0
-let bubbleY = 40    //usually 0
+let bubbleX = 0
+let bubbleY = 0
 let bubbleSize = 10
 
 //bigger changes
-let fishVar = 2 //1 -fish layout for P1, 2 for P2 ect.
+let fishVar = 8 //1 -fish layout for P1, 2 for P2 ect.
 let bubbleVar = 1 //1- no bubbles,2- detailed buble,3- plain bubble
 
 //ignore me
@@ -35,26 +35,35 @@ function setup_wallpaper(pWallpaper) {
 // colours for fishy
 bgColour = color(255, 251, 230);
 fishColour = color(0,8,51)
-eyeColour = color(255,251,230)
-
+eyeColour = color(255, 251, 230)
+//red = 153,25,0
+//dark blue = 0,8,51
+//light blue 66, 83, 107
+//baige = 255,251,230
 
   angleMode(DEGREES);// for head and tail square
-
 
   pWallpaper.output_mode(GRID_WALLPAPER);
   pWallpaper.resolution(NINE_PORTRAIT);
   pWallpaper.show_guide(false); //set this to false when you're ready to print
 
   //Grid settings
-  pWallpaper.grid_settings.cell_width  = 300;
-  pWallpaper.grid_settings.cell_height = 300;
-  pWallpaper.grid_settings.row_offset  = 100;
+  pWallpaper.grid_settings.cell_width  = 400;
+  pWallpaper.grid_settings.cell_height = 400;
+  pWallpaper.grid_settings.row_offset  = 300;
 }
 
 function wallpaper_background() {
 
   background(bgColour); 
 }
+
+
+
+
+
+
+
 
 
 
@@ -71,10 +80,10 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
 //fishy positions
 //ture = mirrored fish
 if (fishVar ==1){
-  DrawFish(-80, 0, fishSize, true); // Mirrored fish
-  DrawFish(-10, 0, fishSize, true);
-  DrawFish(60, 0, fishSize, true); 
-  DrawFish(130, 0, fishSize, true); 
+  DrawFish(-80, 0, fishSize,fishColour, true); // Mirrored fish
+  DrawFish(-10, 0, fishSize,fishColour, true);
+  DrawFish(60, 0, fishSize, fishColour,true); 
+  DrawFish(130, 0, fishSize,fishColour, true); 
 }
 
 if (fishVar ==2){
@@ -84,19 +93,29 @@ if (fishVar ==2){
 }
 
 if(fishVar ==3){
-  DrawFish(-80, 0, fishSize); // Normal fish
-  DrawFish(-10, 0, fishSize, true);// mirored fish
+  DrawFish(-80, 0, fishSize, fishColour); // Normal fish
+  DrawFish(-10, 0, fishSize,fishColour,true);// mirored fish
 }
 
 if (fishVar ==4){
-  DrawFish(-80, 0, fishSize); // Normal fish
+  DrawFish(-80, 0, fishSize,fishColour); // Normal fish
 }
 
 if (fishVar ==5){
-  DrawFish(-80, 80, fishSize); // Normal fish
-  DrawFish(-10, 0, fishSize, true);// mirored fish
-
+  DrawFish(-80, 80, fishSize,fishColour); // Normal fish
+  DrawFish(-10, 0, fishSize,fishColour, true);// mirored fish
 }
+//no six cos it uses Var 2 fish
+if (fishVar ==7){
+  DrawFish(30, -20, fishSize,fishColour); 
+  DrawFish(-90, -160, fishSize,fishColour);
+}
+
+if (fishVar ==8){
+  DrawFish(headX+68, 90, fishSize,color(66, 83, 107)); // Normal fish
+  DrawFish(headX-50, 0, fishSize,fishColour, true);// mirored fish
+}
+
 
 
 //Bubble stuff
@@ -113,7 +132,11 @@ if (bubbleVar ==3){//simple bubbles
   DrawBubble2(bubbleX+20,bubbleY+130,bubbleSize+14)
 
 }
-
+if (bubbleVar ==4){//more simple bubbles
+DrawBubble2(bubbleX,bubbleY+40,bubbleSize)
+DrawBubble2(130,bubbleY+80,bubbleSize+10)
+DrawBubble2(bubbleX+30,bubbleY+125,bubbleSize+20)
+}
 }
 
 
@@ -127,7 +150,7 @@ if (bubbleVar ==3){//simple bubbles
 
 
 
-//functions for drawing symbols
+//functions for drawing my symbols
 
 function DrawFish(headX,headY,fishSize,fishColour, mirror = false,){//fish face
   
