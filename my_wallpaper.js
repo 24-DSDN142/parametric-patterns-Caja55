@@ -1,22 +1,23 @@
+
 //your parameter variables go here!
 
 //so i can change my fish
 let headX = 0   //0 = middle
 let headY =0  //0= middle
-let eyeSize = 8 // 8 usually
+let eyeSize = 10 // 8 usually
 let bgColour;
 let fishColour;
-let fishSize = 2.6
+let fishSize = 2
 let eyeColour;
 
 // bubble code 
-let bubbleX = 0
-let bubbleY = 0
+let bubbleX = 90    //usually 0
+let bubbleY = 40    //usually 0
 let bubbleSize = 10
 
 //bigger changes
-let fishVar = 8 //1 -fish layout for P1, 2 for P2 ect.
-let bubbleVar = 1 //1- no bubbles,2- detailed buble,3- plain bubble
+let fishVar = 2 //1 -fish layout for P1, 2 for P2 ect.
+let bubbleVar = 4 //1- no bubbles,2- detailed buble,3- plain bubble
 
 //ignore me
 //fish sizing code (so it moves together)
@@ -35,7 +36,7 @@ function setup_wallpaper(pWallpaper) {
 // colours for fishy
 bgColour = color(255, 251, 230);
 fishColour = color(0,8,51)
-eyeColour = color(255, 251, 230)
+eyeColour = color(255,251,230)
 //red = 153,25,0
 //dark blue = 0,8,51
 //light blue 66, 83, 107
@@ -48,9 +49,9 @@ eyeColour = color(255, 251, 230)
   pWallpaper.show_guide(false); //set this to false when you're ready to print
 
   //Grid settings
-  pWallpaper.grid_settings.cell_width  = 400;
-  pWallpaper.grid_settings.cell_height = 400;
-  pWallpaper.grid_settings.row_offset  = 300;
+  pWallpaper.grid_settings.cell_width  = 300;
+  pWallpaper.grid_settings.cell_height = 300;
+  pWallpaper.grid_settings.row_offset  = 100;
 }
 
 function wallpaper_background() {
